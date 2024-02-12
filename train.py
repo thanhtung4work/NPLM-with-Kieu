@@ -23,12 +23,13 @@ if __name__ == "__main__":
     wset = corpus_obj.sentences()
     print("Unique word: ", len(wset))
 
-    EMBEDDING_DIM = 32
+    EMBEDDING_DIM = 16
+    HIDDEN_SIZE = 16
     VOCAB_SIZE = len(corpus_obj.lookup_table()[0])
 
-    net = NPLM(VOCAB_SIZE, EMBEDDING_DIM, 32, 3)
+    net = NPLM(VOCAB_SIZE, EMBEDDING_DIM, HIDDEN_SIZE, 3)
     criterion = nn.CrossEntropyLoss()
-    optimizer = optim.SGD(net.parameters(), lr=1e-4)
+    optimizer = optim.Adam(net.parameters(), lr=1e-5)
 
     word_to_idx, idx_to_word = corpus_obj.lookup_table()
     ngram = corpus_obj.ngram(word_to_idx=word_to_idx)
